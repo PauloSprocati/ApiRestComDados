@@ -17,6 +17,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
+//Verificar de token, basicamente ele é o interceptador das requisções.
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -43,7 +45,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // Utilizamos o JwtUtil para extrair o username (pode ser o e-mail, conforme sua implementação)
                 username = jwtUtil.extractUsername(token);
             } catch (Exception e) {
-                // Aqui você pode logar o erro ou tratar expirations/token malformado
                 logger.error("Erro ao extrair o username do token: " + e.getMessage());
             }
         }

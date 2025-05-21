@@ -29,7 +29,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Configure o CORS usando um lambda para vincular o nosso configurationSource
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
@@ -37,10 +36,8 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
-
-        // Se você tiver filtros adicionais, como o jwtRequestFilter, adicione-o aqui:
+        // Garante que o token JWT seja verificdo em cada requisição.
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
@@ -59,6 +56,8 @@ public class SecurityConfiguration {
     }
 
 
+
+    //Em resumo, ele é o responsável por processar e validar as credenciais durante a autenticação
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();

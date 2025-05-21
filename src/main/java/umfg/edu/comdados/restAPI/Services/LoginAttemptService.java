@@ -24,7 +24,6 @@ public class LoginAttemptService {
                 });
     }
 
-    // Deverá ser chamado quando o login for bem-sucedido
     public void loginSucceeded(String key) {
         attemptsCache.invalidate(key);
     }

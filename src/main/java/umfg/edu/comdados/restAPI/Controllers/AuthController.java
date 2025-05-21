@@ -67,10 +67,10 @@ public class AuthController {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getSenha())
             );
-            // Se o login for bem-sucedido, limpe as tentativas anteriores
+
             loginAttemptService.loginSucceeded(key);
         } catch (AuthenticationException e) {
-            // Se a autenticação falhar, registre a tentativa
+
             loginAttemptService.loginFailed(key);
             return ResponseEntity.badRequest().body("Credenciais inválidas.");
         }
